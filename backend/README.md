@@ -2,7 +2,7 @@
 ## 환경설정
 [pyenv 설치](https://idenrai.tistory.com/273)
 
-파이썬 설치 및 가상환경 만들기
+### 파이썬 설치 및 가상환경 만들기
 
 ```commandline
 pyenv install 3.11.4
@@ -12,10 +12,16 @@ pyenv activate venv
 pip install --upgrade pip
 ```
 
-Package Install
+### Package Install
 
 ```commandline
 pip install -r requirements.txt
+```
+
+### SQLite Install
+
+```commandline
+brew install --cask db-browser-for-sqlite
 ```
 
 ## 실행
@@ -23,6 +29,32 @@ uvicorn 실행
 
 ```commandline
 uvicorn main:app --reroad
+```
+
+## DB 관리
+SQLAlchemy로 작성한 모델을 기반으로 데이터베이스를 관리
+models.py 파일에 작성한 모델을 이용하여 테이블을 생성, 변경 가능
+
+### 테이블 내용 변경시
+models의 내용 변경시 리비전을 통해 테이블 생성&변경
+
+```commandline
+alembic revision --autogenerate
+```
+
+리비전 파일을 실행하여, `fastapi_study.db` 파일을 생성
+
+```commandline
+alembic upgrade head
+```
+
+생성된 `fastapi_study.db` 파일은 DB Browser for SQLite에서 확인 가능
+
+### (초기 구축시에만 실시)
+초기화를 통해 alembic.ini 생성
+
+```commandline
+alembic init migrations
 ```
 
 ## 폴더 구조
