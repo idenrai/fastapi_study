@@ -3,6 +3,8 @@ from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+# CORS에 예외 URL 등록
+# https://developer.mozilla.org/ko/docs/Web/HTTP/CORS
 origins = [
     "http://localhost:5173"
 ]
