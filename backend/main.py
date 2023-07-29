@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
+from domain.question import question_router
+
 app = FastAPI()
 
 # CORS에 예외 URL 등록
@@ -17,7 +19,5 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-
-@app.get("/hello")
-def hello():
-    return {"message": "안녕하세요"}
+# router객체를 FastAPI App에 등록해야 라우팅 기능이 동작
+app.include_router(question_router.router)

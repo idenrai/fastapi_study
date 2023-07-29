@@ -24,6 +24,13 @@ pip install -r requirements.txt
 brew install --cask db-browser-for-sqlite
 ```
 
+### File Watcher Plugin
+- Settings → Plugins → `file watchers` 검색 및 설치
+- Settings → Tools → File Watchers에서 `watchers.xml`을 import
+- 자세한 설정은 아래 참조
+  - https://nnamm.work/blog/004-write-cleancode-with-pycharm/
+
+
 ## 실행
 uvicorn 실행
 

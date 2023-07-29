@@ -1,4 +1,9 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
+from sqlalchemy import Column
+from sqlalchemy import DateTime
+from sqlalchemy import ForeignKey
+from sqlalchemy import Integer
+from sqlalchemy import String
+from sqlalchemy import Text
 from sqlalchemy.orm import relationship
 
 from database import Base
@@ -11,6 +16,7 @@ from database import Base
 class Question(Base):
     __tablename__ = "question"
 
+    # PK + Integer는 값을 자동으로 증가시킨다
     id = Column(Integer, primary_key=True)
     subject = Column(String, nullable=False)
     content = Column(Text, nullable=False)
