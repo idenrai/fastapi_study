@@ -1,10 +1,29 @@
 # fastapi_study backend
-## 실행
-Uvicorn 설치
-`pip install "uvicorn[standard]"`
+## 환경설정
+[pyenv 설치](https://idenrai.tistory.com/273)
 
-서버 실행
-`uvicorn main:app --reroad`
+파이썬 설치 및 가상환경 만들기
+
+```commandline
+pyenv install 3.11.4
+python global 3.11.4
+pyenv virtualenv 3.11.4 venv
+pyenv activate venv
+pip install --upgrade pip
+```
+
+Package Install
+
+```commandline
+pip install -r requirements.txt
+```
+
+## 실행
+uvicorn 실행
+
+```commandline
+uvicorn main:app --reroad
+```
 
 ## 그 외
 
