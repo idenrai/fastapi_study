@@ -13,7 +13,7 @@
   let error = { detail: [] }
 
   function get_question() {
-    let url = '/api/question/detail/' + question_id
+    const url = '/api/question/detail/' + question_id
     fastapi('get', url, {}, (json) => {
       question = json
     })
@@ -23,7 +23,7 @@
 
   function post_answer(event) {
     event.preventDefault()
-    let url = '/api/answer/create/' + question_id
+    const url = '/api/answer/create/' + question_id
     let params = {
       content: content,
     }

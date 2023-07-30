@@ -1,6 +1,7 @@
 import datetime
 
 from pydantic import BaseModel
+from pydantic import field_validator
 
 from domain.answer.answer_schema import Answer
 
@@ -31,3 +32,14 @@ class Question(BaseModel):
     # model_config = ConfigDict(
     #     alias_generator=to_camel, from_attributes=True, populate_by_name=True
     # )
+
+
+class QuestionCreate(BaseModel):
+    subject: str
+    content: str
+
+    @field_validator("subject", "content")
+    def not_empty(cls, v):
+        if not v or not v.strip():
+            raise ValueError("빈 값은 허용되지 않습니다.")
+        return v

@@ -5,7 +5,8 @@
   let question_list = []
 
   function get_question_list() {
-    fastapi('get', '/api/question/list', {}, (json) => {
+    const url = '/api/question/list'
+    fastapi('get', url, {}, (json) => {
       question_list = json
     })
   }
@@ -42,4 +43,5 @@
       {/each}
     </tbody>
   </table>
+  <a use:link href="/question-create" class="btn btn-primary">질문 등록하기</a>
 </div>
