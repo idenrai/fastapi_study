@@ -3,6 +3,9 @@
 
   import fastapi from '../lib/api'
   import Error from '../components/Error.svelte'
+  import moment from 'moment/min/moment-with-locales'
+
+  moment.locale('ko')
 
   export let params = {}
   let question_id = params.question_id
@@ -44,11 +47,6 @@
 </script>
 
 <div class="container my-3">
-  <!-- 질문 목록으로 돌아가기 -->
-  <div class="mb-3">
-    <a class="btn btn-primary" use:link href="/"> 돌아가기 </a>
-  </div>
-
   <!-- 질문 -->
   <h2 class="border-bottom py-2">{question.subject}</h2>
   <div class="card my-3">
@@ -56,7 +54,7 @@
       <div class="card-text" style="white-space: pre-line;">{question.content}</div>
       <div class="d-flex justify-content-end">
         <div class="badge bg-light text-dark p-2">
-          {question.create_date}
+          {moment(question.create_date).format('YYYY년 MM월 DD일 HH:mm')}
         </div>
       </div>
     </div>
@@ -83,7 +81,7 @@
         <div class="card-text" style="white-space: pre-line;">{answer.content}</div>
         <div class="d-flex justify-content-end">
           <div class="badge bg-light text-dark p-1">
-            {answer.create_date}
+            {moment(answer.create_date).format('YYYY년 MM월 DD일 HH:mm')}
           </div>
         </div>
       </div>
