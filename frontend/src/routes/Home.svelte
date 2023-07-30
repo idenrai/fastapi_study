@@ -1,5 +1,7 @@
 <script>
   import fastapi from '../lib/api'
+  import { link } from 'svelte-spa-router'
+
   let question_list = []
 
   function get_question_list() {
@@ -11,13 +13,18 @@
   get_question_list()
 </script>
 
+<!-- 
+    해시 기반 라우팅
+    a 태그에 use:link 를 사용, 항상 /# 이 선행되도록 경로를 만들 것
+    브라우저가 /# 으로 시작하는 URL을 동일 페이지로 인식하게 되므로, 리플레쉬시 서버로 페이지 요청을 안보냄
+    => Frontend에서만 사용하는 경로를 API에 요청하는 일이 없어짐
+ -->
 <ul>
   {#each question_list as question}
     <li>
-      <div>
-        <p>제목 : {question.subject}</p>
-        <p>내용 : {question.content}</p>
-      </div>
+      <a use:link href="/detail/{question.id}">
+        {question.subject}
+      </a>
     </li>
   {/each}
 </ul>
