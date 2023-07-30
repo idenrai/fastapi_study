@@ -1,5 +1,7 @@
 # fastapi_study backend
+
 ## 환경설정
+
 [pyenv 설치](https://idenrai.tistory.com/273)
 
 ### 파이썬 설치 및 가상환경 만들기
@@ -25,13 +27,14 @@ brew install --cask db-browser-for-sqlite
 ```
 
 ### File Watcher Plugin
+
 - Settings → Plugins → `file watchers` 검색 및 설치
 - Settings → Tools → File Watchers에서 `watchers.xml`을 import
 - 자세한 설정은 아래 참조
-  - https://nnamm.work/blog/004-write-cleancode-with-pycharm/
-
+  - <https://nnamm.work/blog/004-write-cleancode-with-pycharm/>
 
 ## 실행
+
 uvicorn 실행
 
 ```commandline
@@ -39,10 +42,12 @@ uvicorn main:app --reroad
 ```
 
 ## DB 관리
+
 SQLAlchemy로 작성한 모델을 기반으로 데이터베이스를 관리
 models.py 파일에 작성한 모델을 이용하여 테이블을 생성, 변경 가능
 
 ### 테이블 내용 변경시
+
 models의 내용 변경시 리비전을 통해 테이블 생성&변경
 
 ```commandline
@@ -58,6 +63,7 @@ alembic upgrade head
 생성된 `fastapi_study.db` 파일은 DB Browser for SQLite에서 확인 가능
 
 ### (초기 구축시에만 실시)
+
 초기화를 통해 alembic.ini 생성
 
 ```commandline
@@ -78,5 +84,5 @@ backend
 ```
 
 ## 그 외
-[Documents](http://127.0.0.1:8000/docs)
 
+[Documents](http://127.0.0.1:8000/docs)
