@@ -7,7 +7,7 @@
 `npm run dev`
 
 ## VSCode
-[Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode)
+[Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode)
 
 이하를 VS Code Settings(Cmd + ,)에 추가 
 
