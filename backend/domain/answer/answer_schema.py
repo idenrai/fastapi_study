@@ -1,30 +1,23 @@
 import datetime
 
 from pydantic import BaseModel
-
-# from pydantic import ConfigDict
-# from pydantic.alias_generators import to_camel
+from pydantic import field_validator
 
 
-# Pydantic(https://pydantic-docs.helpmanual.io/)
-# FastAPI의 입출력 스펙을 정의하고, 그 값을 검증
-# - 입출력 항목의 갯수와 타입 설정
-# - 입출력 항목의 필수값 체크
-# - 입출력 항목의 데이터 검증
-#
-# 사용을 위해, 출력 스키마 작성
-class Question(BaseModel):
+# 입력 항목을 처리할 스키마
+# get이 아닌 다른 방식의 입력값은 Pydantic 스키마로만 읽을 수 있다
+# 반대로 get은 각각의 입력 항목을 라우터 함수의 매개변수로 읽어야 한다
+class AnswerCreate(BaseModel):
+    content: str
+
+    @field_validator("content")
+    def not_empty(cls, v: str) -> str:
+        if not v or not v.strip():
+            raise ValueError("빈 값은 허용되지 않습니다.")
+        return v
+
+
+class Answer(BaseModel):
     id: int
-    subject: str
     content: str
     create_date: datetime.datetime
-
-    # model_config를 이용한 모델 관리
-    # https://zenn.dev/tk_resilie/articles/fastapi0100_pydanticv2
-    # alias_generator: JSON 시리얼라이즈를 위한 카멜 케이스 변경
-    # from_attributes: sqlalchemi를 사용할 경우 필수 사용이던 orm_mode = True가 변경
-    #   https://blog.turai.work/entry/20220506/1651797463
-    #   다만, 현재는 이걸 사용하지 않아도 에러가 나지 않고 있다.
-    # model_config = ConfigDict(
-    #     alias_generator=to_camel, from_attributes=True, populate_by_name=True
-    # )

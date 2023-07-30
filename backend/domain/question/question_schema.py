@@ -2,6 +2,8 @@ import datetime
 
 from pydantic import BaseModel
 
+from domain.answer.answer_schema import Answer
+
 # from pydantic import ConfigDict
 # from pydantic.alias_generators import to_camel
 
@@ -18,6 +20,7 @@ class Question(BaseModel):
     subject: str
     content: str
     create_date: datetime.datetime
+    answers: list[Answer] = []
 
     # model_config를 이용한 모델 관리
     # https://zenn.dev/tk_resilie/articles/fastapi0100_pydanticv2

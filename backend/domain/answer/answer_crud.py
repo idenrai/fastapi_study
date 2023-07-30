@@ -1,13 +1,15 @@
+from datetime import datetime
+
 from sqlalchemy.orm import Session
 
+from domain.answer.answer_schema import AnswerCreate
+from models import Answer
 from models import Question
 
 
-def get_question_list(db: Session):
-    question_list = db.query(Question).order_by(Question.create_date.desc()).all()
-    return question_list
-
-
-def get_question(db: Session, question_id: int):
-    question = db.query(Question).get(question_id)
-    return question
+def create_answer(db: Session, question: Question, answer_create: AnswerCreate):
+    db_answer = Answer(
+        question=question, content=answer_create.content, create_date=datetime.now()
+    )
+    db.add(db_answer)
+    db.commit()

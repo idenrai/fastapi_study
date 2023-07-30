@@ -18,3 +18,9 @@
 "editor.formatOnSave": true,
 "[svelte]": {"editor.defaultFormatter": "svelte.svelte-vscode"}
 ```
+
+## TODO
+
+- 컴포넌트 적용
+  - [Svelte Material UI](https://sveltematerialui.com/)
+  - [Carbon Components Svelte](https://carbon-components-svelte.onrender.com/)

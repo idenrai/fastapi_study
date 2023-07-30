@@ -20,8 +20,15 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
     }
 
     fetch(_url, options).then(response => {
+        // No content의 경우에도 success
+        if (response.status === 204) {
+            if (success_callback) {
+                success_callback()
+            }
+            return
+        }
         response.json().then(json => {
-            if (200 <= response.status < 300) {
+            if (response.status >= 200 && response.status < 300) {
                 if (success_callback) {
                     success_callback(json)
                 }
