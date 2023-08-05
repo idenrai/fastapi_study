@@ -22,11 +22,13 @@ router = APIRouter(
 # @router.get Annotation에 response_model을 추가
 # => question_list의 리턴값이 Question 스키마로 구성된 리스트임을 의미
 # question_list 함수의 매개변수로 db: Session = Depends(get_db) 객체를 주입
-@router.get("/list", response_model=list[question_schema.Question])
-def question_list(db: Session = Depends(get_db)):
+@router.get("/list", response_model=question_schema.QuestionList)
+def question_list(db: Session = Depends(get_db), page: int = 0, size: int = 10):
     # 질문 목록 조회
-    _question_list = question_crud.get_question_list(db)
-    return _question_list
+    total, _question_list = question_crud.get_question_list(
+        db, skip=page * size, limit=size
+    )
+    return {"total": total, "question_list": _question_list}
 
 
 @router.get("/detail/{question_id}", response_model=question_schema.Question)

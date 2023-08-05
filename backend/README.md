@@ -35,10 +35,14 @@ brew install --cask db-browser-for-sqlite
 
 ## 실행
 
+```commandline
+pyenv activate venv
+```
+
 uvicorn 실행
 
 ```commandline
-uvicorn main:app --reroad
+uvicorn main:app --reload
 ```
 
 ## DB 관리
