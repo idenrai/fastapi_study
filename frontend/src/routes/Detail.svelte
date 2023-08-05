@@ -1,5 +1,5 @@
 <script>
-  import { link } from 'svelte-spa-router'
+  import { link, push } from 'svelte-spa-router'
 
   import fastapi from '../lib/api'
   import Error from '../components/Error.svelte'
@@ -62,6 +62,13 @@
 
   <!-- 에러 -->
   <Error {error} />
+
+  <button
+    class="btn btn-secondary"
+    on:click={() => {
+      push('/')
+    }}>목록으로</button
+  >
 
   <!-- 답변 입력 -->
   <form metohd="post" class="my-3">

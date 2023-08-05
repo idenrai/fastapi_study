@@ -2,6 +2,7 @@
   import fastapi from '../lib/api'
   import { push } from 'svelte-spa-router'
   import Error from '../components/Error.svelte'
+  import { page } from '../lib/store'
 
   let error = { detail: [] }
   let subject = ''
@@ -25,6 +26,9 @@
         error = err_json
       }
     )
+
+    // 질문 등록시에도 페이지 초기화
+    $page = 0
   }
 </script>
 
@@ -38,7 +42,7 @@
     </div>
     <div class="mb-3">
       <label for="content">내용</label>
-      <input type="text" class="form-control" rows="10" bind:value={content} />
+      <textarea class="form-control" rows="10" bind:value={content} />
     </div>
     <button class="btn btn-primary" on:click={post_question}>저장하기</button>
   </form>

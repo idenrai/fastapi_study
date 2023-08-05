@@ -1,5 +1,6 @@
 <script>
   import { link } from 'svelte-spa-router'
+  import { page } from '../lib/store'
 </script>
 
 <!--
@@ -8,7 +9,14 @@
  -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
   <div class="container-fluid">
-    <a use:link class="navbar-brand" href="/">FastAPI Study</a>
+    <a
+      use:link
+      class="navbar-brand"
+      href="/"
+      on:click={() => {
+        $page = 0
+      }}>FastAPI Study</a
+    >
     <button
       class="navbar-toggler"
       type="button"
