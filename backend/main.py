@@ -3,6 +3,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from domain.answer import answer_router
 from domain.question import question_router
+from domain.user import user_router
 
 app = FastAPI()
 
@@ -21,3 +22,4 @@ app.add_middleware(
 # router객체를 FastAPI App에 등록해야 라우팅 기능이 동작
 app.include_router(question_router.router)
 app.include_router(answer_router.router)
+app.include_router(user_router.router)

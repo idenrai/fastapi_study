@@ -95,6 +95,13 @@ backend
     └── user
 ```
 
+## Package
+패키지를 추가할 경우, 이하 커맨드를 실행할 것
+
+```commandline
+pip freeze > requirements.txt
+```
+
 ## 그 외
 
 [Documents](http://127.0.0.1:8000/docs)
