@@ -20,10 +20,18 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### SQLite Install
+### DB Browser Install
+SQLite DB를 보기 위한 Browser 설치
 
 ```commandline
 brew install --cask db-browser-for-sqlite
+```
+
+### Create DB File
+alembic으로 만든 revision 파일이 이미 존재하므로, 이하 커맨드로 DB 생성
+
+```commandline
+alembic upgrade head
 ```
 
 ### File Watcher Plugin
