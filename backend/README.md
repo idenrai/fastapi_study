@@ -7,9 +7,9 @@
 ### 파이썬 설치 및 가상환경 만들기
 
 ```commandline
-pyenv install 3.11.4
-python global 3.11.4
-pyenv virtualenv 3.11.4 venv
+pyenv install 3.11.5
+python global 3.11.5
+pyenv virtualenv 3.11.5 venv
 pyenv activate venv
 pip install --upgrade pip
 ```
@@ -21,6 +21,7 @@ pip install -r requirements.txt
 ```
 
 ### DB Browser Install
+
 SQLite DB를 보기 위한 Browser 설치
 
 ```commandline
@@ -28,6 +29,7 @@ brew install --cask db-browser-for-sqlite
 ```
 
 ### Create DB File
+
 alembic으로 만든 revision 파일이 이미 존재하므로, 이하 커맨드로 DB 생성
 
 ```commandline
@@ -96,6 +98,7 @@ backend
 ```
 
 ## Package
+
 패키지를 추가할 경우, 이하 커맨드를 실행할 것
 
 ```commandline
