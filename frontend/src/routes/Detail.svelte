@@ -4,6 +4,7 @@
   import fastapi from '../lib/api'
   import Error from '../components/Error.svelte'
   import moment from 'moment/min/moment-with-locales'
+  import { is_login } from '../lib/store'
 
   moment.locale('ko')
 
@@ -70,12 +71,17 @@
     }}>목록으로</button
   >
 
-  <!-- 답변 입력 -->
+  <!-- 답변 입력 : 로그인하지 않은 상태에서는 입력 불가 -->
   <form metohd="post" class="my-3">
     <div class="mb-3">
-      <textarea class="form-control" rows="5" bind:value={content} />
+      <textarea class="form-control" disabled={$is_login ? '' : 'disabled'} rows="5" bind:value={content} />
     </div>
-    <input type="submit" value="답변 등록" class="btn btn-primary" on:click={post_answer} />
+    <input
+      type="submit"
+      value="답변 등록"
+      class="btn btn-primary {$is_login ? '' : 'disabled'}"
+      on:click={post_answer}
+    />
   </form>
 
   <!-- 답변수 -->

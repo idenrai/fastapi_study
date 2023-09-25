@@ -2,7 +2,7 @@
   import fastapi from '../lib/api'
   import { push } from 'svelte-spa-router'
   import Error from '../components/Error.svelte'
-  import { page } from '../lib/store'
+  import { page, is_login } from '../lib/store'
 
   let error = { detail: [] }
   let subject = ''
@@ -44,6 +44,6 @@
       <label for="content">내용</label>
       <textarea class="form-control" rows="10" bind:value={content} />
     </div>
-    <button class="btn btn-primary" on:click={post_question}>저장하기</button>
+    <button class="btn btn-primary {$is_login ? '' : 'disabled'}" on:click={post_question}>저장하기</button>
   </form>
 </div>

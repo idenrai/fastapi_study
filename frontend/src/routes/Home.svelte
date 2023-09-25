@@ -3,7 +3,7 @@
   import moment from 'moment/min/moment-with-locales'
 
   import fastapi from '../lib/api'
-  import { page } from '../lib/store'
+  import { page, is_login } from '../lib/store'
 
   moment.locale('ko')
 
@@ -96,5 +96,7 @@
     </li>
   </ul>
   <!-- 페이징처리 끝 -->
-  <a use:link href="/question-create" class="btn btn-primary">질문 등록하기</a>
+
+  <!-- 질문 등록 : 로그인하지 않은 상태에서는 불가 -->
+  <a use:link href="/question-create" class="btn btn-primary {$is_login ? '' : 'disabled'}">질문 등록하기</a>
 </div>

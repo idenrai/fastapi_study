@@ -64,7 +64,6 @@ def login_to_access_token(
 
 
 # 헤더 정보의 토큰값으로 유저 객체 리턴
-#
 def get_current_user(
     token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)
 ):

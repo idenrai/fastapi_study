@@ -1,4 +1,7 @@
 import qs from "qs"
+import { access_token, username, is_login } from "./store"
+import { get } from 'svelte/store'
+import { push } from 'svelte-spa-router'
 
 // FastAPI용 라이브러리
 const fastapi = (operation, url, params, success_callback, failure_callback) => {
@@ -23,6 +26,12 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
         }
     }
 
+    // Q&A 등록 API가 인증을 필요로 하므로, Header에 Token을 함께 보내야 함
+    const _access_token = get(access_token)
+    if (_access_token) {
+        options.headers["Authorization"] = "Bearer " + _access_token
+    }
+
     if (method === 'get') {
         _url += "?" + new URLSearchParams(params)
     } else {
@@ -44,6 +53,14 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
                 if (success_callback) {
                     success_callback(json)
                 }
+            } else if (operation !== 'login' && response.status === 401) {
+                // Token time out
+                // Operation이 login이 아닌데 401에러가 발생하는 경우 = 로그인이 필요한 상황 (Question, Answer)
+                access_token.set('')
+                username.set('')
+                is_login.set(false)
+                alert("로그인이 필요합니다.")
+                push('/user-login')
             } else {
                 if (failure_callback) {
                     failure_callback(json)
