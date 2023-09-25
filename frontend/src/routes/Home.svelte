@@ -3,7 +3,7 @@
   import moment from 'moment/min/moment-with-locales'
 
   import fastapi from '../lib/api'
-  import { page, is_login } from '../lib/store'
+  import { page, is_login, username } from '../lib/store'
 
   moment.locale('ko')
 
@@ -37,19 +37,20 @@
 </script>
 
 <div class="container my-3">
-  <table class="table">
+  <table class="text-center table">
     <thead>
       <tr>
-        <td>번호</td>
-        <td>제목</td>
-        <td>작성일시</td>
+        <th>번호</th>
+        <th class="text-start" style="width:50%">제목</th>
+        <th>글쓴이</th>
+        <th>작성일시</th>
       </tr>
     </thead>
     <tbody>
       {#each question_list as question, i}
-        <tr>
+        <tr class="text-center">
           <td>{total - $page * size - i}</td>
-          <td>
+          <td class="text-start">
             <!--
                 해시 기반 라우팅
                 a 태그에 use:link 를 사용, 항상 /# 이 선행되도록 경로를 만들 것
@@ -62,6 +63,9 @@
             {#if question.answers.length > 0}
               <span class="text-danger small mx-2">{question.answers.length}</span>
             {/if}
+          </td>
+          <td>
+            {question.user ? question.user.username : ''}
           </td>
           <td>{moment(question.create_date).format('YYYY년 MM월 DD일 HH:mm')}</td>
         </tr>
