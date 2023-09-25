@@ -1,8 +1,18 @@
+import qs from "qs"
+
 // FastAPI용 라이브러리
 const fastapi = (operation, url, params, success_callback, failure_callback) => {
     let method = operation
     let content_type = 'application/json'
     let body = JSON.stringify(params)
+
+    // 로그인 API 요청시(operation = login)에는 Header값 고정
+    // OAuth2의 규칙 : content_type = 'application/x-www-form-urlencoded'
+    if (operation === 'login') {
+        method = 'post'
+        content_type = 'application/x-www-form-urlencoded'
+        body = qs.stringify(params)
+    }
 
     // Svelte환경에서 .env의 환경변수는 무조건 VITE_로 시작해야 함
     let _url = import.meta.env.VITE_SERVER_URL + url
@@ -28,6 +38,8 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
             return
         }
         response.json().then(json => {
+            console.log(json)
+
             if (response.status >= 200 && response.status < 300) {
                 if (success_callback) {
                     success_callback(json)
