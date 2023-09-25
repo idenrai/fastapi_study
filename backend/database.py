@@ -1,3 +1,4 @@
+from sqlalchemy import MetaData
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -12,7 +13,18 @@ engine = create_engine(SQLALCHEMY_DB_URL, connect_args={"check_same_thread": Fal
 # autocommit=False의 경우에만 rollback이 동작
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+# SQLite의 설정 수정
+# PK, UK 등의 제약 조건의 이름을 따로 정의하지 않을 경우, 제약 조건에 이름이 없다는 오류가 발생
+# 이를 막기 위해, 아래를 수동으로 설정
 Base = declarative_base()
+naming_convention = {
+    "ix": "ix_%(column_0_label)s",
+    "uq": "uq_%(table_name)s_%(column_0_name)s",
+    "ck": "ck_%(table_name)s_%(column_0_name)s",
+    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+    "pk": "pk_%(table_name)s",
+}
+Base.metadata = MetaData(naming_convention=naming_convention)
 
 
 # FastAPI DI

@@ -7,6 +7,8 @@ from starlette import status
 from database import get_db
 from domain.question import question_crud
 from domain.question import question_schema
+from domain.user.user_router import get_current_user
+from models import User
 
 """
 MEMO
@@ -42,5 +44,8 @@ def question_detail(question_id: int, db: Session = Depends(get_db)):
 def question_create(
     _question_create: question_schema.QuestionCreate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
-    question_crud.create_question(db, question_create=_question_create)
+    question_crud.create_question(
+        db, question_create=_question_create, user=current_user
+    )
