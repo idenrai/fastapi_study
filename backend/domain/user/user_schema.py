@@ -30,3 +30,13 @@ class UserCreate(BaseModel):
         if "password1" in values.data and v != values.data["password1"]:
             raise ValueError("비밀번호가 일치하지 않습니다.")
         return v
+
+
+# User Login 시에 발행할 토큰
+# FastAPI의 security패키지를 통해 OAuth2 인증을 실시
+# 로그인 시 받아온 토큰은 질답 작성 등 유저 정보가 필요한 API를 호출할 때 필요
+# 액세스 토큰을 FE에 저장해 두고, API 호출시마다 HTTP 헤더에 토큰을 담아 요청
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    user_name: str

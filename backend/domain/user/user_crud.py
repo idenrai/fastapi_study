@@ -27,3 +27,8 @@ def get_existing_user(db: Session, user_create: UserCreate):
         )
         .first()
     )
+
+
+# username으로 사용자 모델 객체를 리턴
+def get_user(db: Session, username: str):
+    return db.query(User).filter(User.username == username).first()
