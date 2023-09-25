@@ -5,6 +5,7 @@
   import Error from '../components/Error.svelte'
   import moment from 'moment/min/moment-with-locales'
   import { is_login, username } from '../lib/store'
+  import { marked } from 'marked'
 
   moment.locale('ko')
 
@@ -12,7 +13,7 @@
   let question_id = params.question_id
 
   // question은 질문 한 건에 대한 상세 정보이므로, {} 로 초기화 필요
-  let question = { answers: [] }
+  let question = { answers: [], content: '' }
   let content = ''
   let error = { detail: [] }
 
@@ -52,7 +53,7 @@
   <h2 class="border-bottom py-2">{question.subject}</h2>
   <div class="card my-3">
     <div class="card-body">
-      <div class="card-text" style="white-space: pre-line;">{question.content}</div>
+      <div class="card-text">{@html marked.parse(question.content)}</div>
       <div class="d-flex justify-content-end">
         <div class="badge bg-light text-dark p-2 text-start">
           <div class="mb-2">{question.user ? question.user.username : ''}</div>
@@ -92,7 +93,7 @@
   {#each question.answers as answer}
     <div class="card my-3">
       <div class="card-body">
-        <div class="card-text" style="white-space: pre-line;">{answer.content}</div>
+        <div class="card-text">{@html marked.parse(answer.content)}</div>
         <div class="d-flex justify-content-end">
           <div class="badge bg-light text-dark p-1 text-start">
             <div class="mb-2">{answer.user ? answer.user.username : ''}</div>
