@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from pydantic import field_validator
 
 from domain.answer.answer_schema import Answer
+from domain.user.user_schema import User
 
 # from pydantic import ConfigDict
 # from pydantic.alias_generators import to_camel
@@ -22,6 +23,7 @@ class Question(BaseModel):
     content: str
     create_date: datetime.datetime
     answers: list[Answer] = []
+    user: User | None
 
     # model_config를 이용한 모델 관리
     # https://zenn.dev/tk_resilie/articles/fastapi0100_pydanticv2

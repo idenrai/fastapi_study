@@ -3,6 +3,8 @@ import datetime
 from pydantic import BaseModel
 from pydantic import field_validator
 
+from domain.user.user_schema import User
+
 
 # 입력 항목을 처리할 스키마
 # get이 아닌 다른 방식의 입력값은 Pydantic 스키마로만 읽을 수 있다
@@ -21,3 +23,7 @@ class Answer(BaseModel):
     id: int
     content: str
     create_date: datetime.datetime
+    user: User | None
+
+    class Config:
+        orm_mode = True
