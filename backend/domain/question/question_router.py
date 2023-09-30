@@ -49,3 +49,26 @@ def question_create(
     question_crud.create_question(
         db, question_create=_question_create, user=current_user
     )
+
+
+@router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
+def question_update(
+    _question_update: question_schema.QuestionUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    db_question = question_crud.get_question(
+        db, question_id=_question_update.question_id
+    )
+    if not db_question:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="데이터를 찾을 수 없습니다."
+        )
+    if current_user.id != db_question.user.id:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="수정 권한이 없습니다."
+        )
+
+    question_crud.update_question(
+        db=db, db_question=db_question, question_update=_question_update
+    )

@@ -36,6 +36,11 @@ class Question(BaseModel):
     # )
 
 
+class QuestionList(BaseModel):
+    total: int = 0
+    question_list: list[Question] = []
+
+
 class QuestionCreate(BaseModel):
     subject: str
     content: str
@@ -47,6 +52,7 @@ class QuestionCreate(BaseModel):
         return v
 
 
-class QuestionList(BaseModel):
-    total: int = 0
-    question_list: list[Question] = []
+# QuestionCreate를 상속하고, question_id만 추가
+# Create에 있는 validation도 동일하게 실시
+class QuestionUpdate(QuestionCreate):
+    question_id: int
