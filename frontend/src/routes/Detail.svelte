@@ -60,6 +60,11 @@
           <div>{moment(question.create_date).format('YYYY년 MM월 DD일 HH:mm')}</div>
         </div>
       </div>
+      <div class="my-3">
+        {#if question.user && $username === question.user.username}
+          <a use:link href="/question-modify/{question.id}" class="btn btn-sm btn-outline-secondary">수정</a>
+        {/if}
+      </div>
     </div>
   </div>
 

@@ -34,10 +34,8 @@ def create_question(db: Session, question_create: QuestionCreate, user: User):
 def update_question(
     db: Session, db_question: Question, question_update: QuestionUpdate
 ):
-    db_question = Question(
-        subject=question_update.subject,
-        content=question_update.content,
-        modify_date=datetime.now(),
-    )
+    db_question.subject = question_update.subject  # type: ignore
+    db_question.content = question_update.content  # type: ignore
+    db_question.modify_date = datetime.now()  # type: ignore
     db.add(db_question)
     db.commit()
