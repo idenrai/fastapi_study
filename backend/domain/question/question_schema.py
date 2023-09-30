@@ -56,3 +56,7 @@ class QuestionCreate(BaseModel):
 # Create에 있는 validation도 동일하게 실시
 class QuestionUpdate(QuestionCreate):
     question_id: int
+
+
+class QuestionDelete(BaseModel):
+    question_id: int
