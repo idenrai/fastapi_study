@@ -10,7 +10,7 @@
 
   function post_question(event) {
     event.preventDefault()
-    const url = '/api/question/create'
+    const url = '/api/questions'
     let params = {
       subject: subject,
       content: content,

@@ -17,14 +17,14 @@ https://fastapi.tiangolo.com/async/
 """
 # router 파일에는 APIRouter로 생성한 router 객체가 필요
 router = APIRouter(
-    prefix="/api/question",
+    prefix="/api/questions",
 )
 
 
 # @router.get Annotation에 response_model을 추가
 # => question_list의 리턴값이 Question 스키마로 구성된 리스트임을 의미
 # question_list 함수의 매개변수로 db: Session = Depends(get_db) 객체를 주입
-@router.get("/list", response_model=question_schema.QuestionList)
+@router.get("/", response_model=question_schema.QuestionList)
 def question_list(db: Session = Depends(get_db), page: int = 0, size: int = 10):
     # 질문 목록 조회
     total, _question_list = question_crud.get_question_list(
@@ -40,7 +40,7 @@ def question_detail(question_id: int, db: Session = Depends(get_db)):
     return question
 
 
-@router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("/", status_code=status.HTTP_204_NO_CONTENT)
 def question_create(
     _question_create: question_schema.QuestionCreate,
     db: Session = Depends(get_db),
@@ -51,7 +51,7 @@ def question_create(
     )
 
 
-@router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
+@router.put("/", status_code=status.HTTP_204_NO_CONTENT)
 def question_update(
     _question_update: question_schema.QuestionUpdate,
     db: Session = Depends(get_db),
@@ -74,7 +74,7 @@ def question_update(
     )
 
 
-@router.delete("/delete", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/", status_code=status.HTTP_204_NO_CONTENT)
 def question_delete(
     _question_delete: question_schema.QuestionDelete,
     db: Session = Depends(get_db),
