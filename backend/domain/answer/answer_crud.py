@@ -19,3 +19,7 @@ def create_answer(
     )
     db.add(db_answer)
     db.commit()
+
+
+def get_answer(db: Session, answer_id: int):
+    return db.query(Answer).get(answer_id)
