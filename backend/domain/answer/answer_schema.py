@@ -32,3 +32,7 @@ class AnswerCreate(BaseModel):
 
 class AnswerUpdate(AnswerCreate):
     answer_id: int
+
+
+class AnswerDelete(BaseModel):
+    answer_id: int
