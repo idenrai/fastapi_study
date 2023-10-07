@@ -17,7 +17,7 @@ https://fastapi.tiangolo.com/async/
 """
 # router 파일에는 APIRouter로 생성한 router 객체가 필요
 router = APIRouter(
-    prefix="/api/questions",
+    prefix="/questions",
 )
 
 

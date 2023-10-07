@@ -13,7 +13,7 @@ from domain.user.user_router import get_current_user
 from models import User
 
 router = APIRouter(
-    prefix="/api/answer",
+    prefix="/answers",
 )
 
 
@@ -50,7 +50,7 @@ def answer_detail(answer_id: int, db: Session = Depends(get_db)):
     return answer
 
 
-@router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
+@router.put("/", status_code=status.HTTP_204_NO_CONTENT)
 def answer_update(
     _answer_update: answer_schema.AnswerUpdate,
     db: Session = Depends(get_db),
