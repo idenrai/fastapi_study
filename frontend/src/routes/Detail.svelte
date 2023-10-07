@@ -102,7 +102,7 @@
       </div>
       <div class="my-3">
         {#if question.user && $username === question.user.username}
-          <a use:link href="/question-modify/{question.id}" class="btn btn-sm btn-outline-secondary">수정</a>
+          <a use:link href="/question-update/{question.id}" class="btn btn-sm btn-outline-secondary">수정</a>
           <button class="btn btn-sm btn-outline-secondary" on:click={() => delete_question(question.id)}>삭제</button>
         {/if}
       </div>
@@ -148,7 +148,7 @@
         </div>
         <div class="my-3">
           {#if answer.user && $username === answer.user.username}
-            <a use:link href="/answer-modify/{answer.id}" class="btn btn-sm btn-outline-secondary">수정</a>
+            <a use:link href="/answer-update/{answer.id}" class="btn btn-sm btn-outline-secondary">수정</a>
             <button class="btn btn-sm btn-outline-secondary" on:click={() => delete_answer(answer.id)}>삭제</button>
           {/if}
         </div>
