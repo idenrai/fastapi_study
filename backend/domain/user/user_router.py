@@ -17,17 +17,17 @@ from domain.user import user_crud
 from domain.user import user_schema
 from domain.user.user_crud import pwd_context
 
-router = APIRouter(prefix="/api/user")
+router = APIRouter(prefix="/users")
 
 # Token
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
 SECRET_KEY = secrets.token_hex(32)
 ALGORITHM = "HS256"
 # 토큰 자동 매핑
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/user/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/users/login")
 
 
-@router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("/", status_code=status.HTTP_204_NO_CONTENT)
 def user_create(_user_create: user_schema.UserCreate, db: Session = Depends(get_db)):
     user = user_crud.get_existing_user(db, user_create=_user_create)
     if user:
