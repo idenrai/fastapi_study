@@ -13,7 +13,7 @@
   let question_id = params.question_id
 
   // question은 질문 한 건에 대한 상세 정보이므로, {} 로 초기화 필요
-  let question = { answers: [], content: '' }
+  let question = { answers: [], content: '', voter: [] }
   let content = ''
   let error = { detail: [] }
 
@@ -86,6 +86,43 @@
       )
     }
   }
+
+  function vote_question(_question_id) {
+    let url = '/questions/vote'
+    let params = {
+      question_id: _question_id,
+    }
+    fastapi(
+      'post',
+      url,
+      params,
+      (json) => {
+        get_question()
+      },
+      (err_json) => {
+        error = err_json
+      }
+    )
+  }
+
+  function vote_answer(answer_id) {
+    let url = '/answers/vote'
+    let params = {
+      answer_id: answer_id,
+    }
+
+    fastapi(
+      'post',
+      url,
+      params,
+      (json) => {
+        get_question()
+      },
+      (err_json) => {
+        error = err_json
+      }
+    )
+  }
 </script>
 
 <div class="container my-3">
@@ -107,6 +144,10 @@
         </div>
       </div>
       <div class="my-3">
+        <button class="btn btn-sm btn-outline-secondary" on:click={vote_question(question.id)}>
+          추천
+          <span class="badge rounded-pill bg-success">{question.voter.length}</span>
+        </button>
         {#if question.user && $username === question.user.username}
           <a use:link href="/question-update/{question.id}" class="btn btn-sm btn-outline-secondary">수정</a>
           <button class="btn btn-sm btn-outline-secondary" on:click={() => delete_question(question.id)}>삭제</button>
@@ -159,6 +200,10 @@
           </div>
         </div>
         <div class="my-3">
+          <button class="btn btn-sm btn-outline-secondary" on:click={vote_answer(answer.id)}>
+            추천
+            <span class="badge rounded-pill bg-success">{answer.voter.length}</span>
+          </button>
           {#if answer.user && $username === answer.user.username}
             <a use:link href="/answer-update/{answer.id}" class="btn btn-sm btn-outline-secondary">수정</a>
             <button class="btn btn-sm btn-outline-secondary" on:click={() => delete_answer(answer.id)}>삭제</button>
