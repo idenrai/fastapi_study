@@ -50,3 +50,8 @@ def delete_question(db: Session, db_question: Question):
 def vote_question(db: Session, db_question: Question, db_user: User):
     db_question.voter.append(db_user)
     db.commit()
+
+
+def cancel_vote_question(db: Session, db_question: Question, db_user: User):
+    db_question.voter.remove(db_user)
+    db.commit()

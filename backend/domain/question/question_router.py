@@ -108,3 +108,23 @@ def question_vote(
         )
 
     question_crud.vote_question(db=db, db_question=db_question, db_user=current_user)
+
+
+@router.delete("/vote", status_code=status.HTTP_204_NO_CONTENT)
+def question_vote_cancel(
+    _question_vote_cancel: question_schema.QuestionVoteCancel,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    db_question = question_crud.get_question(
+        db, question_id=_question_vote_cancel.question_id
+    )
+
+    if not db_question or current_user not in db_question.voter:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="데이터를 찾을 수 없습니다."
+        )
+
+    question_crud.cancel_vote_question(
+        db=db, db_question=db_question, db_user=current_user
+    )

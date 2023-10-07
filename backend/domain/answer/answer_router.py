@@ -91,7 +91,7 @@ def answer_delete(
 
 
 @router.post("/vote", status_code=status.HTTP_204_NO_CONTENT)
-def question_vote(
+def answer_vote(
     _answer_vote: answer_schema.AnswerVote,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
@@ -103,3 +103,19 @@ def question_vote(
         )
 
     answer_crud.vote_answer(db, db_answer=db_answer, db_user=current_user)
+
+
+@router.delete("/vote", status_code=status.HTTP_204_NO_CONTENT)
+def answer_vote_cancel(
+    _answer_vote_cancel: answer_schema.AnswerVoteCancel,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    db_answer = answer_crud.get_answer(db, answer_id=_answer_vote_cancel.answer_id)
+
+    if not db_answer or current_user not in db_answer.voter:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="데이터를 찾을 수 없습니다."
+        )
+
+    answer_crud.cancel_vote_answer(db=db, db_answer=db_answer, db_user=current_user)

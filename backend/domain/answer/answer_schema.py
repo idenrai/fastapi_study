@@ -43,3 +43,7 @@ class AnswerDelete(BaseModel):
 
 class AnswerVote(BaseModel):
     answer_id: int
+
+
+class AnswerVoteCancel(BaseModel):
+    answer_id: int

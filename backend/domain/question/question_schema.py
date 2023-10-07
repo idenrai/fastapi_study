@@ -66,3 +66,7 @@ class QuestionDelete(BaseModel):
 
 class QuestionVote(BaseModel):
     question_id: int
+
+
+class QuestionVoteCancel(BaseModel):
+    question_id: int
