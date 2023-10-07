@@ -35,6 +35,7 @@ class Question(BaseModel):
     user: User | None
     # 수정이 발생할 경우에만 값이 생성되므로, Default값은 None
     update_date: datetime.datetime | None = None
+    voter: list[User] = []
 
 
 class QuestionList(BaseModel):
@@ -60,4 +61,8 @@ class QuestionUpdate(QuestionCreate):
 
 
 class QuestionDelete(BaseModel):
+    question_id: int
+
+
+class QuestionVote(BaseModel):
     question_id: int

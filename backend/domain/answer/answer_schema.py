@@ -17,6 +17,7 @@ class Answer(BaseModel):
     question_id: int
     # 수정이 발생할 경우에만 값이 생성되므로, Default값은 None
     update_date: datetime.datetime | None = None
+    voter: list[User] = []
 
     class Config:
         orm_mode = True
@@ -37,4 +38,8 @@ class AnswerUpdate(AnswerCreate):
 
 
 class AnswerDelete(BaseModel):
+    answer_id: int
+
+
+class AnswerVote(BaseModel):
     answer_id: int
