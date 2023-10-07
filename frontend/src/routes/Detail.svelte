@@ -66,6 +66,26 @@
       )
     }
   }
+
+  function delete_answer(answer_id) {
+    if (window.confirm('정말로 삭제하시겠습니까?')) {
+      let url = '/answers'
+      let params = {
+        answer_id: answer_id,
+      }
+      fastapi(
+        'delete',
+        url,
+        params,
+        (json) => {
+          get_question()
+        },
+        (err_json) => {
+          error = err_json
+        }
+      )
+    }
+  }
 </script>
 
 <div class="container my-3">
@@ -129,6 +149,7 @@
         <div class="my-3">
           {#if answer.user && $username === answer.user.username}
             <a use:link href="/answer-modify/{answer.id}" class="btn btn-sm btn-outline-secondary">수정</a>
+            <button class="btn btn-sm btn-outline-secondary" on:click={() => delete_answer(answer.id)}>삭제</button>
           {/if}
         </div>
       </div>
