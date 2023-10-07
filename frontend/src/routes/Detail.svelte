@@ -126,6 +126,11 @@
             <div>{moment(answer.create_date).format('YYYY년 MM월 DD일 HH:mm')}</div>
           </div>
         </div>
+        <div class="my-3">
+          {#if answer.user && $username === answer.user.username}
+            <a use:link href="/answer-modify/{answer.id}" class="btn btn-sm btn-outline-secondary">수정</a>
+          {/if}
+        </div>
       </div>
     </div>
   {/each}
