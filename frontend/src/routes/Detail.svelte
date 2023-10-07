@@ -87,10 +87,6 @@
     }
   }
 
-  function get(idToFind) {
-    return objectList.find((obj) => obj.id === idToFind)
-  }
-
   function vote_question(_question_id) {
     let url = '/questions/vote'
     let params = {
