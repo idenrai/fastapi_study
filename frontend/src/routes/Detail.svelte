@@ -87,13 +87,22 @@
     }
   }
 
+  function get(idToFind) {
+    return objectList.find((obj) => obj.id === idToFind)
+  }
+
   function vote_question(_question_id) {
     let url = '/questions/vote'
     let params = {
       question_id: _question_id,
     }
+    let method = 'post'
+    if (question.voter.length > 0 && question.voter.find((v) => v.username === $username)) {
+      method = 'delete'
+    }
+
     fastapi(
-      'post',
+      method,
       url,
       params,
       (json) => {
@@ -110,9 +119,13 @@
     let params = {
       answer_id: answer_id,
     }
-
+    const targetAnswer = question.answers.find((answer) => answer.id === answer_id)
+    let method = 'post'
+    if (targetAnswer.voter.length > 0 && targetAnswer.voter.find((v) => v.username === $username)) {
+      method = 'delete'
+    }
     fastapi(
-      'post',
+      method,
       url,
       params,
       (json) => {
