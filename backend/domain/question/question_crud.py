@@ -36,7 +36,7 @@ def update_question(
 ):
     db_question.subject = question_update.subject  # type: ignore
     db_question.content = question_update.content  # type: ignore
-    db_question.modify_date = datetime.now()  # type: ignore
+    db_question.update_date = datetime.now()  # type: ignore
     db.add(db_question)
     db.commit()
 

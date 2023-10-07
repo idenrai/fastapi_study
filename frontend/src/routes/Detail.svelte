@@ -95,6 +95,12 @@
     <div class="card-body">
       <div class="card-text">{@html marked.parse(question.content)}</div>
       <div class="d-flex justify-content-end">
+        {#if question.update_date}
+          <div class="badge bg-light text-dark p-2 text-start mx-3">
+            <div class="mb-2">Updated at</div>
+            <div>{moment(question.update_date).format('YYYY년 MM월 DD일 HH:mm')}</div>
+          </div>
+        {/if}
         <div class="badge bg-light text-dark p-2 text-start">
           <div class="mb-2">{question.user ? question.user.username : ''}</div>
           <div>{moment(question.create_date).format('YYYY년 MM월 DD일 HH:mm')}</div>
@@ -141,7 +147,13 @@
       <div class="card-body">
         <div class="card-text">{@html marked.parse(answer.content)}</div>
         <div class="d-flex justify-content-end">
-          <div class="badge bg-light text-dark p-1 text-start">
+          {#if answer.update_date}
+            <div class="badge bg-light text-dark p-2 text-start mx-3">
+              <div class="mb-2">Updated at</div>
+              <div>{moment(answer.update_date).format('YYYY년 MM월 DD일 HH:mm')}</div>
+            </div>
+          {/if}
+          <div class="badge bg-light text-dark p-2 text-start">
             <div class="mb-2">{answer.user ? answer.user.username : ''}</div>
             <div>{moment(answer.create_date).format('YYYY년 MM월 DD일 HH:mm')}</div>
           </div>

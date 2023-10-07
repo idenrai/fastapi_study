@@ -28,7 +28,7 @@ def get_answer(db: Session, answer_id: int):
 
 def update_answer(db: Session, db_answer: Answer, answer_update: AnswerUpdate):
     db_answer.content = answer_update.content  # type: ignore
-    db_answer.modify_date = datetime.now()  # type: ignore
+    db_answer.update_date = datetime.now()  # type: ignore
     db.add(db_answer)  # type: ignore
     db.commit()
 
