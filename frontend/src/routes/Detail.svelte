@@ -16,11 +16,22 @@
   let question = { answers: [], content: '', voter: [] }
   let content = ''
   let error = { detail: [] }
+  let best_answer = { content: '', voter: [] }
 
   function get_question() {
     const url = '/questions/detail/' + question_id
     fastapi('get', url, {}, (json) => {
       question = json
+
+      if (question.answers.length > 1) {
+        best_answer = question.answers.reduce((a, b) => {
+          if (b.voter.length > a.voter.length) {
+            return b
+          } else {
+            return a
+          }
+        }, question.answers[0])
+      }
     })
   }
 
@@ -188,8 +199,41 @@
     />
   </form>
 
+  <!-- 베스트 답변 -->
+  {#if best_answer && best_answer.content && best_answer.voter.length > 0}
+    <h5 class="border-bottom my-3 py-2">베스트 답변</h5>
+    <div class="card my-3">
+      <div class="card-body">
+        <div class="card-text">{@html marked.parse(best_answer.content)}</div>
+        <div class="d-flex justify-content-end">
+          {#if best_answer.update_date}
+            <div class="badge bg-light text-dark p-2 text-start mx-3">
+              <div class="mb-2">Updated at</div>
+              <div>{moment(best_answer.update_date).format('YYYY년 MM월 DD일 HH:mm')}</div>
+            </div>
+          {/if}
+          <div class="badge bg-light text-dark p-2 text-start">
+            <div class="mb-2">{best_answer.user ? best_answer.user.username : ''}</div>
+            <div>{moment(best_answer.create_date).format('YYYY년 MM월 DD일 HH:mm')}</div>
+          </div>
+        </div>
+        <div class="my-3">
+          <button class="btn btn-sm btn-outline-secondary" on:click={vote_answer(best_answer.id)}>
+            추천
+            <span class="badge rounded-pill bg-success">{best_answer.voter.length}</span>
+          </button>
+          {#if best_answer.user && $username === best_answer.user.username}
+            <a use:link href="/answer-update/{best_answer.id}" class="btn btn-sm btn-outline-secondary">수정</a>
+            <button class="btn btn-sm btn-outline-secondary" on:click={() => delete_answer(best_answer.id)}>삭제</button
+            >
+          {/if}
+        </div>
+      </div>
+    </div>
+  {/if}
+
   <!-- 답변수 -->
-  <h5 class="border-bottom my-3 py-2">{question.answers.length}개의 답변이 있습니다.</h5>
+  <h5 class="border-bottom my-3 py-2">총 {question.answers.length}개의 답변이 있습니다.</h5>
 
   <!-- 답변 목록 -->
   {#each question.answers as answer}
