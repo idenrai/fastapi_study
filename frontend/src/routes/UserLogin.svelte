@@ -10,7 +10,7 @@
 
   function login(event) {
     event.preventDefault()
-    let url = '/api/user/login'
+    let url = '/users/login'
     let params = {
       username: login_username,
       password: login_password,

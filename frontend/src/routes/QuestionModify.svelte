@@ -11,14 +11,14 @@
   let content = ''
 
   // 컴포넌트 로딩시, question_id로 우선 질문 데이터 조회
-  fastapi('get', '/api/questions/detail/' + question_id, {}, (json) => {
+  fastapi('get', '/questions/detail/' + question_id, {}, (json) => {
     subject = json.subject
     content = json.content
   })
 
   function update_question(event) {
     event.preventDefault()
-    const url = '/api/questions'
+    const url = '/questions'
     let params = {
       question_id: question_id,
       subject: subject,

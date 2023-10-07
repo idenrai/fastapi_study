@@ -11,7 +11,7 @@
 
   function post_user(event) {
     event.preventDefault()
-    let url = '/api/user/create'
+    let url = '/users'
     let params = {
       username: username,
       password1: password1,
@@ -23,7 +23,7 @@
       url,
       params,
       (json) => {
-        push('/user/login')
+        push('/users/login')
       },
       (json_error) => {
         error = json_error

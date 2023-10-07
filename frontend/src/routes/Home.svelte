@@ -18,7 +18,7 @@
   $: total_page = Math.ceil(total / size)
 
   function get_question_list(_page) {
-    const url = '/api/questions'
+    const url = '/questions'
 
     let params = {
       page: _page,

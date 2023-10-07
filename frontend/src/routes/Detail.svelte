@@ -18,7 +18,7 @@
   let error = { detail: [] }
 
   function get_question() {
-    const url = '/api/questions/detail/' + question_id
+    const url = '/questions/detail/' + question_id
     fastapi('get', url, {}, (json) => {
       question = json
     })
@@ -28,7 +28,7 @@
 
   function post_answer(event) {
     event.preventDefault()
-    const url = '/api/answer/create/' + question_id
+    const url = '/answers/create/' + question_id
     let params = {
       content: content,
     }
@@ -49,7 +49,7 @@
 
   function delete_question(_question_id) {
     if (window.confirm('정말로 삭제하시겠습니까?')) {
-      let url = '/api/questions'
+      let url = '/questions'
       let psarams = {
         question_id: _question_id,
       }
