@@ -47,8 +47,6 @@ const fastapi = (operation, url, params, success_callback, failure_callback) => 
             return
         }
         response.json().then(json => {
-            console.log(json)
-
             if (response.status >= 200 && response.status < 300) {
                 if (success_callback) {
                     success_callback(json)
