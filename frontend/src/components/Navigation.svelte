@@ -1,6 +1,6 @@
 <script>
   import { link } from 'svelte-spa-router'
-  import { page, access_token, username, is_login } from '../lib/store'
+  import { page, keyword, access_token, username, is_login } from '../lib/store'
 </script>
 
 <!--
@@ -15,6 +15,7 @@
       href="/"
       on:click={() => {
         $page = 0
+        $keyword = ''
       }}>FastAPI Study</a
     >
     <button

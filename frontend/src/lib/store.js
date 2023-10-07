@@ -21,6 +21,9 @@ const persist_storage = (key, initValue) => {
 // Pagination
 export const page = persist_storage("page", 0)
 
+// Search
+export const keyword = persist_storage("keyword", "")
+
 // Login
 export const access_token = persist_storage("access_token", "")
 export const username = persist_storage("username", "")
