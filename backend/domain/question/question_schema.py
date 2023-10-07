@@ -23,8 +23,6 @@ class Question(BaseModel):
     content: str
     create_date: datetime.datetime
     answers: list[Answer] = []
-    user: User | None
-
     # model_config를 이용한 모델 관리
     # https://zenn.dev/tk_resilie/articles/fastapi0100_pydanticv2
     # alias_generator: JSON 시리얼라이즈를 위한 카멜 케이스 변경
@@ -34,6 +32,9 @@ class Question(BaseModel):
     # model_config = ConfigDict(
     #     alias_generator=to_camel, from_attributes=True, populate_by_name=True
     # )
+    user: User | None
+    # 수정이 발생할 경우에만 값이 생성되므로, Default값은 None
+    update_date: datetime.datetime | None = None
 
 
 class QuestionList(BaseModel):

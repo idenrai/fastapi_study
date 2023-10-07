@@ -15,6 +15,8 @@ class Answer(BaseModel):
     create_date: datetime.datetime
     user: User | None
     question_id: int
+    # 수정이 발생할 경우에만 값이 생성되므로, Default값은 None
+    update_date: datetime.datetime | None = None
 
     class Config:
         orm_mode = True
